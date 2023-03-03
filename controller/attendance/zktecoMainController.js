@@ -23,8 +23,12 @@ const zkAttendanceUSerRecord = async (req, res) => {
       zkInstance2,
       ZkUserRecord
     );
+        res.status(200).json({ message: "Data Fetched Successfully" })
+
   } catch (error) {
     console.log(error)
+        res.status(500).json({ message: "Something went wrong" })
+
   }
 };
 
