@@ -10,20 +10,6 @@ dotenv.config({ path: "./config.env" });
 
 const slackClient = new WebClient(process.env.SLACK_BOT_TOKEN);
 
-//get employee email from slack
-
-// const getAllUserEmails = async () => {
-//     const response = await slackClient.users.list();
-//     const users = response.members.filter((user) => !user.deleted && !user.is_bot);
-//     const userEmails = users.map((user) => user.profile.email).filter(Boolean);
-//     return userEmails;
-// }
-// getAllUserEmails().then((userEmails) => {
-//     console.log(userEmails);
-// }).catch((error) => {
-//     console.error(error);
-// });
-
 //lookup for SlackID using user email
 const lookupUserByEmail = async (email) => {
   try {
@@ -181,30 +167,14 @@ const notifyEmployeesEvening = async () => {
         }
       })
     );
+     res.status(200).json({ message: "User Notified Successfully" })
   }
   catch (err) {
     console.log(err)
+        res.status(500).json({ message: "Something went wrong" })
   }
 };
 
-// Run notifyEmployees every day at 9:00 AM and 5:30 PM
-cron.schedule("22 12 * * *", async () => {
-  try {
-    await notifyEmployeesMorning();
-    console.log("Employees notified successfully");
-  } catch (err) {
-    console.error("Error notifying employees:", err);
-  }
-});
-
-cron.schedule("10 18 * * *", async () => {
-  try {
-    await notifyEmployeesEvening();
-    console.log("Employees notified successfully");
-  } catch (err) {
-    console.error("Error notifying employees:", err);
-  }
-});
 
 module.exports = {
   notifyEmployeesMorning,
