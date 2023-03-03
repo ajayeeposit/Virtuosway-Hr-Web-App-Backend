@@ -1,5 +1,6 @@
 const Employee = require("../../model/Employee/Employee");
 const { ZkUserRecord } = require("../../model/Attendance/zkAttendance");
+const { zkAttendanceUSerRecord } = require('./zktecoMainController')
 const cron = require("node-cron");
 const dotenv = require("dotenv");
 const { WebClient } = require("@slack/web-api");
@@ -27,6 +28,13 @@ const lookupUserByEmail = async (email) => {
 //notify employee if late
 
 const notifyEmployeesMorning = async (req,res) => {
+    try {
+    zkAttendanceUSerRecord();
+    console.log("Data Fetched successfully")
+
+  } catch (err) {
+    console.error("Error notifying employees:", err);
+  }
   try {
 
     const nepaliDate = new NepaliDate(new Date());
