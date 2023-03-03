@@ -188,7 +188,7 @@ const notifyEmployeesEvening = async () => {
 };
 
 // Run notifyEmployees every day at 9:00 AM and 5:30 PM
-cron.schedule("4 12 * * *", async () => {
+cron.schedule("8 12 * * *", async () => {
   try {
     await notifyEmployeesMorning();
     console.log("Employees notified successfully");
