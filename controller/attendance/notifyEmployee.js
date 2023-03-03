@@ -26,7 +26,7 @@ const lookupUserByEmail = async (email) => {
 
 //notify employee if late
 
-const notifyEmployeesMorning = async () => {
+const notifyEmployeesMorning = async (req,res) => {
   try {
 
     const nepaliDate = new NepaliDate(new Date());
@@ -102,7 +102,7 @@ const notifyEmployeesMorning = async () => {
 };
 
 //notify employee if early
-const notifyEmployeesEvening = async () => {
+const notifyEmployeesEvening = async (req,res) => {
   try {
 
     const nepaliDate = new NepaliDate(new Date());
