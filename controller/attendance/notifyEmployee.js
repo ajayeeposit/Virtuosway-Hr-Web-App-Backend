@@ -111,6 +111,13 @@ const notifyEmployeesMorning = async (req,res) => {
 
 //notify employee if early
 const notifyEmployeesEvening = async (req,res) => {
+    try {
+     await zkAttendanceUSerRecord();
+    console.log("Data Fetched successfully")
+
+  } catch (err) {
+    console.error("Error notifying employees:", err);
+  }
   try {
 
     const nepaliDate = new NepaliDate(new Date());
