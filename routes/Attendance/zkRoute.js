@@ -25,7 +25,7 @@ const express = require("express");
 const router = express.Router();
 
 //Main route
-router.put("/updatezkAttendanceRecord", zkAttendanceUSerRecord);
+router.get("/updatezkAttendanceRecord", zkAttendanceUSerRecord);
 router.get("/getzkAttendanceUSerRecord", getzkAttendanceUSerRecord);
 router.get("/getUserMonthlyReport", getUserMonthlyReport);
 router.put("/updateEmployeeAttendance", updateEmployeeAttendance);
