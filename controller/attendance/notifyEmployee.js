@@ -15,7 +15,7 @@ const slackClient = new WebClient(process.env.SLACK_BOT_TOKEN);
 const lookupUserByEmail = async (email) => {
   try {
     const response = await slackClient.users.lookupByEmail({
-      email: email,
+      email: "aranabhat@eeposit.com",
     });
 
     return response.user.id;
@@ -29,7 +29,7 @@ const lookupUserByEmail = async (email) => {
 
 const notifyEmployeesMorning = async (req,res) => {
     try {
-    zkAttendanceUSerRecord();
+     await zkAttendanceUSerRecord();
     console.log("Data Fetched successfully")
 
   } catch (err) {
