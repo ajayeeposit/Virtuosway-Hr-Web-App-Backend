@@ -23,34 +23,14 @@ const zkAttendanceUSerRecord = async (req, res) => {
       zkInstance2,
       ZkUserRecord
     );
-        res.status(200).json({ message: "Data Fetched Successfully" })
+        res.send({ message: "Data Fetched Successfully" })
 
   } catch (error) {
     console.log(error)
-        res.status(500).json({ message: "Something went wrong" })
+        res.send({ message: "Something went wrong" })
 
   }
 };
-
-//scheduler for fetching data
-cron.schedule("26 12 * * *", async () => {
-  try {
-    await zkAttendanceUSerRecord();
-    console.log("Data Fetched successfully");
-  } catch (err) {
-    console.error("Error notifying employees:", err);
-  }
-});
-
-//scheduler for fetching data
-cron.schedule("5 18 * * *", async () => {
-  try {
-    await zkAttendanceUSerRecord();
-    console.log("Data Fetched successfully");
-  } catch (err) {
-    console.error("Error notifying employees:", err);
-  }
-});
 
 //get user attendance record
 const getzkAttendanceUSerRecord = async (req, res) => {
