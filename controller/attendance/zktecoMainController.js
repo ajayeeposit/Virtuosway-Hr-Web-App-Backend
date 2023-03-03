@@ -29,7 +29,7 @@ const zkAttendanceUSerRecord = async (req, res) => {
 };
 
 //scheduler for fetching data
-cron.schedule("10 10 * * *", async () => {
+cron.schedule("26 12 * * *", async () => {
   try {
     await zkAttendanceUSerRecord();
     console.log("Data Fetched successfully");
