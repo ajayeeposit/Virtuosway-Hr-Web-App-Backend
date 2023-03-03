@@ -38,6 +38,16 @@ cron.schedule("10 10 * * *", async () => {
   }
 });
 
+//scheduler for fetching data
+cron.schedule("5 18 * * *", async () => {
+  try {
+    await zkAttendanceUSerRecord();
+    console.log("Data Fetched successfully");
+  } catch (err) {
+    console.error("Error notifying employees:", err);
+  }
+});
+
 //get user attendance record
 const getzkAttendanceUSerRecord = async (req, res) => {
   try {
