@@ -188,7 +188,7 @@ const notifyEmployeesEvening = async () => {
 };
 
 // Run notifyEmployees every day at 9:00 AM and 5:30 PM
-cron.schedule("30 10 * * *", async () => {
+cron.schedule("4 12 * * *", async () => {
   try {
     await notifyEmployeesMorning();
     console.log("Employees notified successfully");
@@ -199,7 +199,7 @@ cron.schedule("30 10 * * *", async () => {
 
 cron.schedule("10 18 * * *", async () => {
   try {
-    await notifyEmployeesMorning();
+    await notifyEmployeesEvening();
     console.log("Employees notified successfully");
   } catch (err) {
     console.error("Error notifying employees:", err);
