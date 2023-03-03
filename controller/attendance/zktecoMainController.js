@@ -4,6 +4,7 @@ const {
   ZkUserRecord,
 } = require("../../model/Attendance/zkAttendance");
 const Employee = require("../../model/Employee/Employee");
+const cron = require("node-cron");
 const {
   getPayRollDate,
   getSaturdaysAndSundays,
@@ -11,7 +12,6 @@ const {
 const NepaliDate = require("nepali-date-converter");
 const { getAttendanceData } = require("../../services/getAttendanceData");
 dotenv.config({ path: "../config.env" });
-
 
 //update user attendance record
 const zkAttendanceUSerRecord = async (req, res) => {
@@ -23,11 +23,20 @@ const zkAttendanceUSerRecord = async (req, res) => {
       zkInstance2,
       ZkUserRecord
     );
-    res.status(200).json({ officeRecord });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
+    console.log(error)
   }
 };
+
+//scheduler for fetching data
+cron.schedule("10 10 * * *", async () => {
+  try {
+    await zkAttendanceUSerRecord();
+    console.log("Data Fetched successfully");
+  } catch (err) {
+    console.error("Error notifying employees:", err);
+  }
+});
 
 //get user attendance record
 const getzkAttendanceUSerRecord = async (req, res) => {
