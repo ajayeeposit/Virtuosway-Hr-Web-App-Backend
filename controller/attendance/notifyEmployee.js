@@ -40,7 +40,7 @@ const lookupUserByEmail = async (email) => {
 
 //notify employee if late
 
-const notifyEmployeesMorning = async (req, res) => {
+const notifyEmployeesMorning = async () => {
   try {
 
     const nepaliDate = new NepaliDate(new Date());
@@ -107,16 +107,16 @@ const notifyEmployeesMorning = async (req, res) => {
         }
       })
     );
-    res.status(200).json({ message: "User Notified Successfully" })
+   
   }
   catch (error) {
     console.log(error)
-    res.status(500).json({ message: "Something went wrong" })
+    
   }
 };
 
 //notify employee if early
-const notifyEmployeesEvening = async (req, res) => {
+const notifyEmployeesEvening = async () => {
   try {
 
     const nepaliDate = new NepaliDate(new Date());
@@ -181,11 +181,9 @@ const notifyEmployeesEvening = async (req, res) => {
         }
       })
     );
-    res.status(200).json({ message: "User Notified Successfully" })
   }
   catch (err) {
     console.log(err)
-    res.status(500).json({ message: "Something went wrong" })
   }
 };
 
