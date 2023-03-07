@@ -7,6 +7,7 @@ const {
 const {
     notifyEmployeesMorning,
     notifyEmployeesEvening,
+    notifyEmployeewithTime
 } = require("../../controller/attendance/notifyEmployee");
 const {
     updateEmployeeAttendance,
@@ -43,6 +44,7 @@ router.get("/getTotalWorkHourofEmployee/:id", getTotalWorkHourofEmployee);
 //Slack Notify Route
 router.get("/notifyEmployeesMorning", notifyEmployeesMorning);
 router.get("/notifyEmployeesEvening", notifyEmployeesEvening);
+router.get("/notifyEmployeewithTime", notifyEmployeewithTime);
 router.get("/restartZkDevice", restartZkDevice);
 
 //Office User Data count
