@@ -207,7 +207,7 @@ const notifyEmployeewithTime = async (req, res) => {
             const attendanceByDate = attendance.attendanceByDate;
             const lastAttendance =
               attendanceByDate[attendanceByDate.length - 1];
-            if (lastAttendance) {
+            if (lastAttendance.date == currentDate) {
               let message = "";
               message = `Hello ${employeeName}, You Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}`;
               if (message !== "") {
