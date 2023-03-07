@@ -190,8 +190,57 @@ const notifyEmployeesEvening = async (req,res) => {
   }
 };
 
+const notifyEmployeewithTime = async (req, res) => {
+  try {
+    const employees = await Employee.find({}).exec();
+    await Promise.all(
+      employees.map(async (employee) => {
+        const { employeeNumber, email, employeeName } = employee;
+        const slackUserId = await lookupUserByEmail(email);
+
+        if (slackUserId) {
+          const attendance = await ZkUserRecord.findOne({
+            userSn: employeeNumber,
+          }).exec();
+
+          if (attendance) {
+            const attendanceByDate = attendance.attendanceByDate;
+            const lastAttendance =
+              attendanceByDate[attendanceByDate.length - 1];
+            if (lastAttendance) {
+              let message = "";
+              message = `Hello ${employeeName}, You Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}`;
+              if (message !== "") {
+                try {
+                  const response = await slackClient.chat.postMessage({
+                    channel: slackUserId,
+                    text: message,
+                  });
+
+                  console.log(
+                    `Message sent to ${employeeName}: ${response.ts}`
+                  );
+                } catch (error) {
+                  console.error(
+                    `Error sending message to ${employeeName}: ${error}`
+                  );
+                }
+              }
+            }
+          }
+        }
+
+      }))
+    res.send({ message: "User Notified Successfully" });
+  } catch (err) {
+    console.log(err)
+    res.send({ message: "Something went wrong" });
+  }
+}
+
 
 module.exports = {
   notifyEmployeesMorning,
   notifyEmployeesEvening,
+  notifyEmployeewithTime
 };
