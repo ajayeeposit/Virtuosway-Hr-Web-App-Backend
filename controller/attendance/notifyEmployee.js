@@ -196,6 +196,13 @@ const notifyEmployeesEvening = async (req,res) => {
 
 const notifyEmployeewithTime = async (req, res) => {
   try {
+     await zkAttendanceUSerRecord();
+    console.log("Data Fetched successfully")
+
+  } catch (err) {
+    console.error("Error notifying employees:", err);
+  }
+  try {
     const employees = await Employee.find({}).exec();
     await Promise.all(
       employees.map(async (employee) => {
