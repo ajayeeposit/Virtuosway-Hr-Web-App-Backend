@@ -15,7 +15,7 @@ const slackClient = new WebClient(process.env.SLACK_BOT_TOKEN);
 const lookupUserByEmail = async (email) => {
   try {
     const response = await slackClient.users.lookupByEmail({
-      email:"aranabhat@eeposit.com",
+      email:email,
     });
 
     return response.user.id;
