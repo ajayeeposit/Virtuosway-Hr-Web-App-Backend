@@ -119,7 +119,11 @@ const notifyEmployeesEvening = async (req,res) => {
     console.error("Error notifying employees:", err);
   }
   try {
-
+    const nepaliDate = new NepaliDate(new Date());
+    const year = nepaliDate.getYear();
+    const month = (nepaliDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = nepaliDate.getDate().toString().padStart(2, "0");
+    const currentDate = `${year}/${month}/${day}`;
     const nepaliDate = new NepaliDate(new Date());
     const year = nepaliDate.getYear();
     const month = (nepaliDate.getMonth() + 1).toString().padStart(2, "0");
