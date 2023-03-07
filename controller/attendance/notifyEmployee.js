@@ -74,9 +74,9 @@ const notifyEmployeesMorning = async (req,res) => {
             if (lastAttendance.date == currentDate) {
               let message = "";
               if (lateByMinutes > 0) {
-                message = ` Hello ${employeeName}, you're late by ${lateByMinutes} minutes. Please be on Time. Thank you.`;
+                message = ` Hello ${employeeName}, you're late by ${lateByMinutes}. Please be on Time. Thank you.`;
               } else {
-                message = ` Hello ${employeeName}, you arrived timely. Thank you.`;
+                message = ` Hello ${employeeName}, you've arrived timely. Thank you.`;
               }
               if (message !== "") {
                 try {
@@ -158,7 +158,7 @@ const notifyEmployeesEvening = async (req,res) => {
             if (lastAttendance.date == currentDate) {
               let message = "";
               if (leftEarlyMinutes > 0) {
-                message = `Hello ${employeeName}, you left ${leftEarlyMinutes} minutes early. Please leave on Time. Thank you.`;
+                message = `Hello ${employeeName}, you left ${leftEarlyMinutes} early. Please leave on Time. Thank you.`;
               }
               if (message !== "") {
                 try {
@@ -222,7 +222,7 @@ const notifyEmployeewithTime = async (req, res) => {
               attendanceByDate[attendanceByDate.length - 1];
             if (lastAttendance.date == currentDate) {
               let message = "";
-              message = `Hello ${employeeName}, You Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for Today is ${lastAttendance.workHour}`;
+              message = `Hello ${employeeName}, Your Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for Today is ${lastAttendance.workHour}`;
               if (message !== "") {
                 try {
                   const response = await slackClient.chat.postMessage({
