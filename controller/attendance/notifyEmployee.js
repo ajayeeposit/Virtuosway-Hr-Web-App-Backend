@@ -202,13 +202,10 @@ const notifyEmployeewithTime = async (req, res) => {
   try {
     const nepaliDate = new NepaliDate(new Date());
     nepaliDate.setDate(nepaliDate.getDate() - 1);
-    console.log("nepaliDate", nepaliDate)
     const year = nepaliDate.getYear();
     const month = (nepaliDate.getMonth() + 1).toString().padStart(2, "0");
     const day = nepaliDate.getDate().toString().padStart(2, "0");
-    console.log("day", day)
     const currentDate = `${year}/${month}/${day}`;
-    console.log("currentDate", currentDate)
     const employees = await Employee.find({}).exec();
     await Promise.all(
       employees.map(async (employee) => {
