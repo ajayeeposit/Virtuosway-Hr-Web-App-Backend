@@ -229,7 +229,7 @@ const notifyEmployeewithTime = async (req, res) => {
 
                 const workhour = parseFloat(lastAttendance.workHour).toFixed(1)
                 let message = "";
-                message = `Hello ${employeeName}, You Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for Today is ${workhour} Hour.`;
+                message = `Hello ${employeeName}, Your Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for ${currentDate} is ${workhour} Hour.`;
                 if (message !== "") {
                   try {
                     const response = await slackClient.chat.postMessage({
