@@ -76,7 +76,7 @@ const notifyEmployeesMorning = async (req,res) => {
               if (lateByMinutes > 0) {
                 message = ` Hello ${employeeName}, you're late by ${lateByMinutes}. Please be on Time. Thank you.`;
               } else {
-                message = ` Hello ${employeeName}, you've arrived timely. Thank you.`;
+                message = ` Hello ${employeeName}, you've arrived on time. Thank you.`;
               }
               if (message !== "") {
                 try {
