@@ -203,7 +203,7 @@ const notifyEmployeewithTime = async (req, res) => {
     const nepaliDate = new NepaliDate(new Date());
     const year = nepaliDate.getYear();
     const month = (nepaliDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = nepaliDate.getDate().toString().padStart(2, "0");
+    const day = nepaliDate.getDate().toString().padStart(2, "0") -1;
     const currentDate = `${year}/${month}/${day}`;
     const employees = await Employee.find({}).exec();
     await Promise.all(
@@ -222,7 +222,7 @@ const notifyEmployeewithTime = async (req, res) => {
               attendanceByDate[attendanceByDate.length - 1];
             if (lastAttendance.date == currentDate) {
               let message = "";
-              message = `Hello ${employeeName}, Your Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for Today is ${lastAttendance.workHour}`;
+              message = `Hello ${employeeName}, Your Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for Today is ${lastAttendance.workHour} Hour.`;
               if (message !== "") {
                 try {
                   const response = await slackClient.chat.postMessage({
