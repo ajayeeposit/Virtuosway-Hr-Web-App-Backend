@@ -201,10 +201,14 @@ const notifyEmployeewithTime = async (req, res) => {
   }
   try {
     const nepaliDate = new NepaliDate(new Date());
+    nepaliDate.setDate(nepaliDate.getDate() - 1);
+    console.log("nepaliDate", nepaliDate)
     const year = nepaliDate.getYear();
     const month = (nepaliDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = nepaliDate.getDate().toString().padStart(2, "0") -1;
+    const day = nepaliDate.getDate().toString().padStart(2, "0");
+    console.log("day", day)
     const currentDate = `${year}/${month}/${day}`;
+    console.log("currentDate", currentDate)
     const employees = await Employee.find({}).exec();
     await Promise.all(
       employees.map(async (employee) => {
@@ -219,25 +223,31 @@ const notifyEmployeewithTime = async (req, res) => {
           if (attendance) {
             const attendanceByDate = attendance.attendanceByDate;
             const lastAttendance =
-              attendanceByDate[attendanceByDate.length - 1];
+              attendanceByDate[attendanceByDate.length - 2];
             if (lastAttendance.date == currentDate) {
-              let message = "";
-              message = `Hello ${employeeName}, Your Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for Today is ${lastAttendance.workHour} Hour.`;
-              if (message !== "") {
-                try {
-                  const response = await slackClient.chat.postMessage({
-                    channel: slackUserId,
-                    text: message,
-                  });
+              if (!lastAttendance.absent && !lastAttendance.holiday) {
 
-                  console.log(
-                    `Message sent to ${employeeName}: ${response.ts}`
-                  );
-                } catch (error) {
-                  console.error(
-                    `Error sending message to ${employeeName}: ${error}`
-                  );
+                const workhour = parseFloat(lastAttendance.workHour).toFixed(1)
+                let message = "";
+                message = `Hello ${employeeName}, You Entry and Exit Time is ${lastAttendance.entryTime}- ${lastAttendance.exitTime}  and your Total Work Hour for Today is ${workhour} Hour.`;
+                if (message !== "") {
+                  try {
+                    const response = await slackClient.chat.postMessage({
+                      channel: slackUserId,
+                      text: message,
+                    });
+
+                    console.log(
+                      `Message sent to ${employeeName}: ${response.ts}`
+                    );
+                  } catch (error) {
+                    console.error(
+                      `Error sending message to ${employeeName}: ${error}`
+                    );
+                  }
                 }
+              } else {
+                console.log(`No attendance data found for ${employeeName}`);
               }
             }
           }
